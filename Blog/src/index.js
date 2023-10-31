@@ -6,7 +6,17 @@ const exphbs  = require('express-handlebars');
 const app = express();
 const port = 3000;
 
+const route = require('./routes');
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Middleware
+app.use(express.urlencoded({
+  extended: true
+}
+));
+//js -> server
+app.use(express.json());
 
 
 //HTTP Logger
@@ -19,15 +29,8 @@ app.engine('hbs', exphbs.engine({
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources\\views'));
 
-
-app.get('/', (req, res) => {
-  res.render('home');
-})
-
-
-app.get('/news', (req, res) => {
-  res.render('news');
-})
+//Route Init
+route(app);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
