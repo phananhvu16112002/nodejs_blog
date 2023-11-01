@@ -4,6 +4,7 @@ const morgan = require('morgan');
 // const handlebars = require('express-handlebars');
 const exphbs = require('express-handlebars');
 const app = express();
+const hbs = require('handlebars');
 const port = 3000;
 
 const route = require('./routes');
@@ -31,6 +32,10 @@ app.engine(
     'hbs',
     exphbs.engine({
         extname: '.hbs',
+    }),
+
+    hbs.registerHelper('sum', function (a, b) {
+        return parseInt(a) + parseInt(b);
     }),
 );
 app.set('view engine', 'hbs');
