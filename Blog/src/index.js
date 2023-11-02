@@ -3,6 +3,7 @@ const path = require('path');
 const morgan = require('morgan');
 // const handlebars = require('express-handlebars');
 const exphbs = require('express-handlebars');
+const methodOverride = require('method-override');
 const app = express();
 const hbs = require('handlebars');
 const port = 3000;
@@ -23,6 +24,8 @@ app.use(
 );
 //js -> server
 app.use(express.json());
+
+app.use(methodOverride('_method'));
 
 //HTTP Logger
 app.use(morgan('combined'));
